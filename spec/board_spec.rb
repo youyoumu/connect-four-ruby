@@ -3,7 +3,7 @@ require "./lib/board.rb"
 describe Board do
   subject(:game) { described_class.new() }
   let(:board) { game.instance_variable_get(:@board) }
-  let(:mark) { "⚫" }
+  let(:mark) { "🔴" }
 
   describe "#draw_board" do
     it "draw the board nicely" do
@@ -79,6 +79,40 @@ describe Board do
 
       it "#check_high(1) will return 6" do
         expect(game.check_high(1)).to eq 6
+      end
+    end
+  end
+
+  describe "#check_winner" do
+    context "when no one wins" do
+      it "return false" do
+        expect(game.check_winner).to eq(false)
+      end
+    end
+
+    context "when someone wins vertically" do
+      before do
+        board[5][0] = mark
+        board[4][0] = mark
+        board[3][0] = mark
+        board[2][0] = mark
+      end
+
+      it "return true" do
+        expect(game.check_winner).to eq(true)
+      end
+    end
+
+    context "when someone wins horizontally" do
+      before do
+        board[0][0] = mark
+        board[0][1] = mark
+        board[0][2] = mark
+        board[0][3] = mark
+      end
+
+      it "return true" do
+        expect(game.check_winner).to eq(true)
       end
     end
   end
