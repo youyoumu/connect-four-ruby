@@ -145,8 +145,22 @@ describe Board do
 
   describe "#play" do
     context "when Player 1 wins" do
+      before do
+        allow(game).to receive(:gets).and_return('1\n', '2\n', '1\n', '3\n', '1\n', '4\n', '1\n')
+      end
       it "set Player 1 as winner" do
+        game.play
         expect(game.p1.is_win).to eq(true)
+      end
+    end
+
+    context "when Player 2 wins" do
+      before do
+        allow(game).to receive(:gets).and_return('1\n', '2\n', '3\n', '2\n', '4\n', '2\n', '5\n', '2\n')
+      end
+      it "set Player 2 as winner" do
+        game.play
+        expect(game.p2.is_win).to eq(true)
       end
     end
   end

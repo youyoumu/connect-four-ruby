@@ -12,20 +12,59 @@ class Board
   end
 
   def play
+    draw_board
+
+    loop do
+      turn_p1
+      draw_board
+      if check_winner
+        @p1.is_win = true
+        announce_winner
+        break
+      end
+      turn_p2
+      draw_board
+      if check_winner
+        @p2.is_win = true
+        announce_winner
+        break
+      end
+    end
 
   end
 
+  def announce_winner
+    puts "#{@p1.name} wins!" if @p1.is_win
+    puts "#{@p2.name} wins!" if @p2.is_win
+  end
+
   def turn_p1
+    puts "#{@p1.name}'s turn:"
+    input = ""
     loop do
       input = gets.chomp
-
+      break if input_valid?(input)
+      puts "Input invalid! Try again:"
     end
+    drop_ball(input.to_i, @red)
+  end
+
+  def turn_p2
+    puts "#{@p2.name}'s turn:"
+    input = ""
+    loop do
+      input = gets.chomp
+      break if input_valid?(input)
+      puts "Input invalid! Try again:"
+    end
+    drop_ball(input.to_i, @blue)
   end
 
   def draw_board
     @board.each do |row|
       puts "| #{row.join(' | ')} |"
     end
+    puts "| 1  | 2  | 3  | 4  | 5  | 6  | 7  |"
   end
 
   def drop_ball(column, ball)
