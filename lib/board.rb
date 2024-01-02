@@ -1,8 +1,25 @@
+require "./lib/player.rb"
+
 class Board
+  attr_accessor :p1, :p2
+
   def initialize(name1 = "Player 1", name2 = "Player 2")
     @board = Array.new(6) { Array.new(7, '  ') }
     @red = "🔴"
     @blue = "🔵"
+    @p1 = Player.new(name1)
+    @p2 = Player.new(name2)
+  end
+
+  def play
+
+  end
+
+  def turn_p1
+    loop do
+      input = gets.chomp
+
+    end
   end
 
   def draw_board

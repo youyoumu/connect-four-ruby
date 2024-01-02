@@ -142,4 +142,12 @@ describe Board do
       end
     end
   end
+
+  describe "#play" do
+    context "when Player 1 wins" do
+      it "set Player 1 as winner" do
+        expect(game.p1.is_win).to eq(true)
+      end
+    end
+  end
 end
