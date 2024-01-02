@@ -32,7 +32,7 @@ class Board
   end
 
   def check_winner
-    return true if check_vertically || check_horizontally
+    return true if check_vertically || check_horizontally || check_diagonally1 || check_diagonally2
     false
   end
 
@@ -65,30 +65,9 @@ class Board
   def check_diagonally1
     arr_red = Array.new(4, @red).join('')
     arr_blue = Array.new(4, @blue).join('')
-    arr = []
-    arr << @board[0][0]
-
-    arr << @board[1][0]
-    arr << @board[0][1]
-
-    arr << @board[2][0]
-    arr << @board[1][1]
-    arr << @board[0][2]
-
-    arr << @board[3][0]
-    arr << @board[2][1]
-    arr << @board[1][2]
-    arr << @board[0][3]
-
-    arr << @board[5][1]
-    arr << @board[4][2]
-    arr << @board[3][3]
-    arr << @board[2][4]
-    arr << @board[1][5]
-    arr << @board[0][6]
 
     7.times do |a|
-      7.times do |b|
+      6.times do |b|
         i = a
         j = b
         arr = []
@@ -100,5 +79,28 @@ class Board
         return true if arr.join('').include?(arr_red) || arr.join('').include?(arr_blue)
       end
     end
+
+    false
+  end
+
+  def check_diagonally2
+    arr_red = Array.new(4, @red).join('')
+    arr_blue = Array.new(4, @blue).join('')
+
+    6.times do |a|
+      7.times do |b|
+        i = a
+        j = b
+        arr = []
+        until j > 6 || i > 5
+          arr << @board[i][j]
+          j += 1
+          i += 1
+        end
+        return true if arr.join('').include?(arr_red) || arr.join('').include?(arr_blue)
+      end
+    end
+
+    false
   end
 end

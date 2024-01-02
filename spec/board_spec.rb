@@ -115,5 +115,31 @@ describe Board do
         expect(game.check_winner).to eq(true)
       end
     end
+
+    context "when someone wins diagonally1" do
+      before do
+        board[5][0] = mark
+        board[4][1] = mark
+        board[3][2] = mark
+        board[2][3] = mark
+      end
+
+      it "return true" do
+        expect(game.check_winner).to eq(true)
+      end
+    end
+
+    context "when someone wins diagonally2" do
+      before do
+        board[0][0] = mark
+        board[1][1] = mark
+        board[2][2] = mark
+        board[3][3] = mark
+      end
+
+      it "return true" do
+        expect(game.check_winner).to eq(true)
+      end
+    end
   end
 end
